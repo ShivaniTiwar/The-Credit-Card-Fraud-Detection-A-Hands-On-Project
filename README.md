@@ -1,1 +1,1 @@
-# The-Credit-Card-Fraud-Detection-A-Hands-On-Project
+# Credit-Card-Fraud-Detection-A-Hands-On-Project

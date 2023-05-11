@@ -1,0 +1,5 @@
+# Dummy Classifier
+dummy = DummyClassifier()
+dummy.fit(X_train_under, y_train_under)
+
+

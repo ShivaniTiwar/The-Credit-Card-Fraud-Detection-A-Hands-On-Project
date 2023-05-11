@@ -1,0 +1,8 @@
+# Plotting heatmap to find any high correlations between variables
+plt.figure(figsize=(10,8))
+sns.heatmap(data=df.corr(), cmap="seismic", annot=False)
+# plt.show()
+
+# Save the plot as PNG file
+plt.savefig('corr_heatmap.png');
+

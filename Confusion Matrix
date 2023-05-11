@@ -1,0 +1,105 @@
+def make_confusion_matrix_val(model, threshold=0.5):
+    """
+    Create a confusion matrix plot for the given model and threshold. 
+    
+    Parameters:
+    -----------
+    model : sklearn classifier
+        The classification model to evaluate.
+    threshold : float, default=0.5
+        Probability threshold for binary classification.
+        
+    Returns:
+    --------
+    None
+    
+    """
+    # Predict class 1 if probability of being in class 1 is greater than threshold
+    # (model.predict(X_test) does this automatically with a threshold of 0.5)
+    y_predict = (model.predict_proba(X_val_under)[:, 1] >= threshold)
+    
+    # calculate the confusion matrix
+    fraud_confusion = confusion_matrix(y_val_under, y_predict)
+    
+    # plot the confusion matrix as heatmap
+    plt.figure(dpi=100)
+    sns.set(font_scale=1)
+    sns.heatmap(fraud_confusion, cmap=plt.cm.Blues, annot=True, square=True, fmt='d',
+           xticklabels=['Not Fraud', 'Fraud'],
+           yticklabels=['Not Fraud', 'Fraud']);
+    
+    # calculate TP, FP, FN, and TN values from the confusion matrix
+    TP = fraud_confusion[0][0]
+    FP = fraud_confusion[0][1]
+    FN = fraud_confusion[1][0]
+    TN = fraud_confusion[1][1]
+    
+    # rotate y-axis ticks
+    plt.yticks(rotation = 0)
+    
+    # set plot title, x and y labels
+    plt.title('Predicted vs. Actual',fontname = '.SF Compact Display',fontsize = 20,pad = 10);
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    
+    
+    # Create a confusion matrix for the Random Forest model with a threshold of 0.421 on the validation data
+make_confusion_matrix_val(rf_grid, threshold=0.421)
+
+# Save the plot as PNG file
+plt.savefig('confusion_matrix_val_random_forest.png');
+
+# Create a confusion matrix for the Logistic Regression model with a threshold of 0.842 on the validation data
+make_confusion_matrix_val(logistic_grid, threshold=0.842)
+
+# Save the plot as PNG file
+plt.savefig('confusion_matrix_val_logistic_regression.png');
+
+def make_confusion_matrix_test(model, threshold=0.5):
+    """
+    Generates a confusion matrix for a given model on the test dataset, given a threshold.
+
+    Args:
+    - model: a trained machine learning model
+    - threshold: threshold for binary classification
+
+    Returns: None
+    """
+
+    # Predict class 1 if probability of being in class 1 is greater than threshold
+    y_predict = (model.predict_proba(X_test_std)[:, 1] >= threshold)
+
+    # Generate confusion matrix
+    fraud_confusion = confusion_matrix(y_test, y_predict)
+
+    # Plot heatmap of confusion matrix
+    plt.figure(dpi=100)
+    sns.set(font_scale=1)
+    sns.heatmap(fraud_confusion, cmap=plt.cm.Blues, annot=True, square=True, fmt='d',
+                xticklabels=['Not Fraud', 'Fraud'],
+                yticklabels=['Not Fraud', 'Fraud'])
+
+    # Calculate TP, FP, FN, TN
+    TP = fraud_confusion[0][0]
+    FP = fraud_confusion[0][1]
+    FN = fraud_confusion[1][0]
+    TN = fraud_confusion[1][1]
+
+    # Add title, labels and rotate y-tick labels
+    plt.yticks(rotation=0)
+    plt.title('Predicted vs. Actual', fontname='.SF Compact Display', fontsize=20, pad=10)
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    
+    # Generate confusion matrix for random forest model on test dataset
+make_confusion_matrix_test(rf_grid, threshold=0.421)
+
+# Save the plot as PNG file
+plt.savefig('confusion_matrix_test_random_forest.png');
+
+# Generate confusion matrix for logistic regression model on test dataset
+make_confusion_matrix_test(logistic_grid, threshold=0.842)
+
+# Save the plot as PNG file
+plt.savefig('confusion_matrix_test_logistic_regression.png');
+

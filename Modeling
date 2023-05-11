@@ -1,0 +1,35 @@
+# Drop the 'Class' column to prepare data for splitting
+data = df.drop(columns=['Class'])
+
+# Get the target variable
+answer = df['Class']
+
+# Split data into training, validation and test sets, ensuring the class distribution is maintained
+X_trainval, X_test, y_trainval, y_test = train_test_split(data, answer
+                                                          , test_size=0.2
+                                                          , stratify=df['Class']
+                                                          , random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(X_trainval, y_trainval
+                                                  , test_size=0.25
+                                                  , stratify=y_trainval
+                                                  , random_state=42)
+
+# Initialize the StandardScaler object and fit it to the training data
+scaler = StandardScaler()
+scaler.fit(X_train)
+
+# Scale the training, validation, and test sets using the scaler
+X_train_std = scaler.transform(X_train)
+X_val_std = scaler.transform(X_val)
+X_test_std = scaler.transform(X_test)
+
+# Undersampling will be utilized to address the issue of imbalanced classes.
+
+# Instantiate RandomUnderSampler
+rus = RandomUnderSampler(random_state=42)
+
+# Undersample the training set
+X_train_under, y_train_under = rus.fit_resample(X_train_std, y_train)
+
+# Undersample the validation set
+X_val_under, y_val_under = rus.fit_resample(X_val_std, y_val)

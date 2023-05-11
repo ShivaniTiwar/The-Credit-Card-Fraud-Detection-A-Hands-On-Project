@@ -1,0 +1,14 @@
+# Random Forest
+# Run CV with 5 folds (Random Forest)
+# Create the parameter grid based on the results of random search 
+param_grid = {
+    'max_depth': [5, 10, 15],
+    'max_features': ['sqrt'],
+    'min_samples_leaf': [10, 20],
+    'min_samples_split': [2, 5],
+    'n_estimators': [500, 700]
+}
+
+rf = RandomForestClassifier()
+rf_grid = GridSearchCV(rf, param_grid, cv=5, scoring='roc_auc', verbose=10, n_jobs=-1)
+rf_grid.fit(X_train_under,y_train_under)

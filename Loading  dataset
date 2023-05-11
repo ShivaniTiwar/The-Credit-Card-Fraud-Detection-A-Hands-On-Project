@@ -1,0 +1,7 @@
+# Loading data
+df = pd.read_csv('/kaggle/input/creditcardfraud/creditcard.csv')
+
+
+
+
+dataset link (https://www.kaggle.com/code/nhiyen/credit-card-fraud-detection-a-hands-on-project/input)

@@ -1,0 +1,4 @@
+# Naive Bayes
+# Fit a Naive Bayes Model
+gnb = GaussianNB()
+gnb_best = gnb.fit(X_train_under, y_train_under)

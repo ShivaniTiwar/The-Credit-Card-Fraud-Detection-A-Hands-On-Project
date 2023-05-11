@@ -1,0 +1,42 @@
+# Printing random sample of 10 rows to check data loading
+df.sample(10)
+
+# Printing data overview
+df.info()
+
+# Printing numerical summary for Time and Amount columns
+df.loc[:, ['Time', 'Amount']].describe()
+
+# Plotting distribution of Time feature
+plt.figure(figsize=(10,8), )
+plt.title('Time Distribution (Seconds)')
+sns.distplot(df['Time'], color='blue')
+
+# Save the plot as PNG file
+plt.savefig('time_distribution.png');
+
+
+# Plotting distribution of Amount feature
+plt.figure(figsize=(10,8))
+plt.title('Distribution of Amount')
+sns.distplot(df['Amount'], color='blue')
+
+# Save the plot as PNG file
+plt.savefig('amount_distribution.png');
+
+# Counting number of fraud vs non-fraud transactions and displaying them with their ratio
+fraud = df['Class'].value_counts()[1]
+nonfraud = df['Class'].value_counts()[0]
+print(f'Fraudulent: {fraud}, Non-fraudulent: {nonfraud}')
+print(f'Ratio of fraud to non-fraud: {fraud}/{nonfraud} ({fraud/nonfraud*100:.3f}%)')
+
+# Plotting count of fraud vs non-fraud transactions in a bar chart
+plt.figure(figsize=(10,8))
+sns.barplot(x=df['Class'].value_counts().index, y=df['Class'].value_counts(), color='blue')
+plt.title('Fraudulent vs. Non-Fraudulent Transactions')
+plt.ylabel('Count')
+plt.xlabel('0:Non-Fraudulent, 1:Fraudulent')
+
+# Save the plot as PNG file
+plt.savefig('fraud_vs_nonfraud_transactions.png');
+
